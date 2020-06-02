@@ -6,6 +6,10 @@ from pygame import mixer
 
 pygame.init()
 
+#Title
+pygame.display.set_caption("Zombie Wars")
+
+
 # create the screen of 800x600
 screen = pygame.display.set_mode((800, 600))
 
@@ -23,7 +27,7 @@ def mainmenu():
 def button (msg,x,y,w,h,i,a):
     mouse = pygame.mouse.get_pos()
 
-# Main program
+# Main Menu
 isDoneMenu = True
 isDone = True
 while isDoneMenu:
@@ -44,6 +48,7 @@ while isDoneMenu:
 
     mainmenu()
 
+    # Pressing keys does stuff
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             isDoneMenu = False
@@ -51,10 +56,12 @@ while isDoneMenu:
 
     pygame.display.update()
 
-
+#Main Program
 while isDone:
     screen.fill((0, 0, 0))
     print("running2")
+
+
 
     #Pressing keys does stuff
     for event in pygame.event.get():
