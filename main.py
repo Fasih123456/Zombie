@@ -1,23 +1,27 @@
 import pygame
 import random
 import math
+import time
 
 from pygame import mixer
 
+# Animation Stuff
+win = pygame.display.set_mode((500, 480))
+deathcount = 0
+standingcount = 0
+
 pygame.init()
 
-#Title
+# Title
 pygame.display.set_caption("Zombie Wars")
-
-
 
 # create the screen of 800x600
 screen = pygame.display.set_mode((800, 600))
 
-#background
+# background
 Background = pygame.image.load('background.jpg')
 
-#Player
+# Player
 playerlevel = 1
 playerhealth = 600 * playerlevel
 playerdamage = 25 * playerlevel
@@ -25,9 +29,29 @@ playerstamina = 25 * playerlevel
 playerexp = 400 * playerlevel
 playerdefense = 12 * playerlevel
 playerimage = pygame.image.load('svendeath.gif')
-playerdeathimage = [pygame.image.load("Death/Capture.png"),pygame.image.load("Death/Capture1.png"),pygame.image.load("Death/Capture2.png"),pygame.image.load("Death/Capture3.png"),pygame.image.load("Death/Capture4.png"),pygame.image.load("Death/Capture5.png"),pygame.image.load("Death/Capture6.png"),pygame.image.load("Death/Capture7.png"),pygame.image.load("Death/Capture8.png"),pygame.image.load("Death/Capture9.png"),pygame.image.load("Death/Capture10.png")]
+playerdeathimage = [pygame.image.load("Death/sven-thole-knight-death-0.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-1.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-2.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-3.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-4.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-5.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-6.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-7.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-8.png"),
+                    pygame.image.load("Death/sven-thole-knight-death-9.png")]
+playerstandingimage = [pygame.image.load("Idle/sven-thole-knight-idle-0.png"),
+                       pygame.image.load("Idle/sven-thole-knight-idle-1.png"),
+                       pygame.image.load("Idle/sven-thole-knight-idle-2.png"),
+                       pygame.image.load("Idle/sven-thole-knight-idle-3.png"),
+                       pygame.image.load("Idle/sven-thole-knight-idle-4.png"),
+                       pygame.image.load("Idle/sven-thole-knight-idle-5.png"),
+                       pygame.image.load("Idle/sven-thole-knight-idle-6.png"),
+                       pygame.image.load("Idle/sven-thole-knight-idle-7.png")]
 
-#Enemy
+width_of_player = 64
+height_of_player = 64
+
+# Enemy
 enemysmallhealth = 400
 enemysmalldamage = 15
 enemysmalldefense = 30
@@ -58,7 +82,6 @@ isDone = True
 while isDoneMenu:
     screen.fill((0, 0, 0))
 
-
     # buttons
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -80,20 +103,43 @@ while isDoneMenu:
 
     pygame.display.update()
 
-#Main Program
+# Main Program
 while isDone:
-    screen.fill((0, 0, 0))
-    screen.blit(Background,(0,0))
 
-    screen.blit(enemysmallimage, (300, 400))
-    screen.blit(enemybigimage, (200, 400))
-
-
-    #Pressing keys does stuff
+    # Pressing keys does stuff
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             isDone = False
-       # if event.type == pygame.K_RIGHT
 
+    keys = pygame.key.get_pressed()
+
+    if playerhealth <= 0:
+        dead = True
+    else:
+        dead = False
+
+    screen.fill((0, 0, 0))
+    screen.blit(Background, (0, 0))
+
+    deathcount
+    standingcount
+
+    if deathcount + 1 >= 30:
+        walkcount = 0
+
+    if standingcount + 1 >= 21:
+        standingcount = 0
+
+    if dead:
+        win.blit(playerdeathimage[deathcount // 3], (100, 375))
+        time.sleep(0.03)
+        deathcount += 1
+    else:
+        win.blit(playerstandingimage[standingcount // 3], (100, 375))
+        time.sleep(0.05)
+        standingcount += 1
+
+    win.blit(enemysmallimage, (400, 450))
+    screen.blit(enemybigimage, (300, 425))
 
     pygame.display.update()
